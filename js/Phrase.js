@@ -28,17 +28,19 @@ class Phrase {
         });
     }
 
-    // checkLetter() {
-    //     this.phrase.forEach(letter => {
-    //         if (letter === this.phrase) {
-    //             return true;
-    //         } else {
-    //             return false;
-    //         }
-    //     })
-    // }
+    checkLetter(letter) { 
+        //unsure of this
+        return this.phrase = letter;
+    }
 
-    // showMatchedLetter() {
-
-    // }
+    showMatchedLetter(letter) {
+        //select all of the letter DOM elements that have a CSS class name that matches the selected letter
+        const li = document.querySelectorAll('li.hide.letter');
+        li.forEach(phrase => {
+            if (letter === phrase.textContent.toLowerCase()) {
+                phrase.classList.remove('hide')
+                phrase.classList.add('show')
+            }
+        })
+    }
 }
