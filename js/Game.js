@@ -22,8 +22,8 @@ class Game {
 
     startGame() {
         document.querySelector('#overlay').style.display = 'none';
-        this.activePhrases = this.getRandomPhrase();
-        this.activePhrases.addPhraseToDisplay();
+        this.activePhrase = this.getRandomPhrase();
+        this.activePhrase.addPhraseToDisplay();
     }
 
     /**
@@ -35,23 +35,46 @@ class Game {
         return this.phrases[randomizer];
     }
 
-    // handleInteraction() {
+    checkForWin() {
+    //loop through li, if any of the li still contains hide, return false
+        const hiddenLetters = document.querySelectorAll('li.hide.letter')
+        hiddenLetters.forEach(letter => {
+            if (letter.className.includes('hide')) {
+                return false;
+            } else {
+                return true;
+            }
+        });
 
-    // }
+    }
 
-    // removeLife() {
-    //     if (player missed 5 guesses) {
-    //         gameOver()
-    //     } else if (player guesses wrong) {
+    removeLife() {
+        //Use set attribute on the image element
+        //increment missed property
+        //if missed is total to 5, call gameover()
+        this.missed += 1;
+        const tries = document.querySelectorAll('.tries');
 
-    //     }
-    // }
+        for (let i = 0; i < tries.length; i++) {
+            tries[i].setAttribute('src', './img/lostHeart.png')
+            if (this.missed === 5) {
+                this.gameOver();
+            }
+        }
+    }
+    
+    gameOver(gameWon) {
+        const gameOverMessage = document.querySelector('#game-over-message');
+        const overlay = document.querySelector('#overlay')
 
-    // checkForWin() {
-
-    // }
-
-    // gameOver() {
-
-    // }
+        if (gameWon) {
+            gameOverMessage.textContent = 'You Won!'
+            overlay.style.display = 'none';
+            overlay.setAttribute('class', 'win')
+        } else if (!gameWon) {
+            gameOverMessage.textContent = 'You Lost!'
+            overlay.style.display = 'none';
+            overlay.setAttribute('class', 'lose')
+        }
+    }
 }

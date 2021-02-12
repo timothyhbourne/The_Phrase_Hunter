@@ -29,15 +29,15 @@ class Phrase {
     }
 
     checkLetter(letter) { 
-        //unsure of this
-        return this.phrase = letter;
+        const phrase = this.phrase.toLowerCase();
+        return phrase.includes(letter) ? true : false;
     }
 
     showMatchedLetter(letter) {
         //select all of the letter DOM elements that have a CSS class name that matches the selected letter
         const li = document.querySelectorAll('li.hide.letter');
         li.forEach(phrase => {
-            if (letter === phrase.textContent.toLowerCase()) {
+            if (letter.toLowerCase() === phrase.textContent.toLowerCase()) {
                 phrase.classList.remove('hide')
                 phrase.classList.add('show')
             }
