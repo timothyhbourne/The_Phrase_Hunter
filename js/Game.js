@@ -45,7 +45,6 @@ class Game {
                 return true;
             }
         });
-
     }
 
     removeLife() {
@@ -56,7 +55,7 @@ class Game {
         const tries = document.querySelectorAll('.tries');
 
         for (let i = 0; i < tries.length; i++) {
-            tries[i].setAttribute('src', './img/lostHeart.png')
+            tries[i].setAttribute('src', 'images/lostHeart.png')
             if (this.missed === 5) {
                 this.gameOver();
             }
