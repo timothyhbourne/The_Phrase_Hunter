@@ -39,7 +39,7 @@ class Game {
     //loop through li, if any of the li still contains hide, return false
         const hiddenLetters = document.querySelectorAll('li.hide.letter')
         hiddenLetters.forEach(letter => {
-            if (letter.className.includes('hide')) {
+            if (letter.className.includes('letter')) {
                 return false;
             } else {
                 return true;
