@@ -63,28 +63,27 @@ class Game {
         const images = document.querySelectorAll('img');
 
         for (let i = 0; i < this.missed; i++) {
-            images[i].setAttribute('src', 'images/lostHeart.png')
+            images[i].setAttribute('src', 'images/lostHeart.png');
         }
-
         if (this.missed === 5) {
             this.gameOver();
         }
     }
     
     gameOver(gameWon) {
-        const overlay = document.querySelector('#overlay')
+        const overlay = document.querySelector('#overlay');
         const gameOverMessage = overlay.querySelector('#game-over-message');
 
         if (gameWon) {
             gameOverMessage.textContent = 'You Won!'
             overlay.style.display = '';
-            overlay.setAttribute('class', 'win')
-            this.resetGame()
+            overlay.setAttribute('class', 'win');
+            this.resetGame();
         } else if (this.missed === 5) {
             gameOverMessage.textContent = 'You Lost!'
             overlay.style.display = '';
-            overlay.setAttribute('class', 'lose')
-            this.resetGame()
+            overlay.setAttribute('class', 'lose');
+            this.resetGame();
         }
     }
 
@@ -92,12 +91,13 @@ class Game {
         const ul = document.querySelector('ul');
         const letters = ul.querySelectorAll('li');
         const keyboardButtons = document.querySelectorAll('.key');
-        const attempts = document.querySelectorAll('img')
+        const attempts = document.querySelectorAll('img');
+        const banner = document.querySelector('#banner');
         this.missed = 0;
 
-        letters.forEach(letter => ul.removeChild(letter))
-        keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'))
-        attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'))
-
+        letters.forEach(letter => ul.removeChild(letter));
+        keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'));
+        attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'));
+        banner.nextElementSibling.remove();
     }
 }
