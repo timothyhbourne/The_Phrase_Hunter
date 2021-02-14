@@ -35,11 +35,11 @@ class Phrase {
 
     showMatchedLetter(letter) {
         //select all of the letter DOM elements that have a CSS class name that matches the selected letter
-        const li = document.querySelectorAll('li.hide.letter');
-        li.forEach(phrase => {
-            if (letter.toLowerCase() === phrase.textContent.toLowerCase()) {
-                phrase.classList.remove('hide')
-                phrase.classList.add('show')
+        const hiddenLetters = document.querySelectorAll('li.hide.letter');
+        hiddenLetters.forEach(hiddenLetter => {
+            if (letter.toLowerCase() === hiddenLetter.textContent) {
+                hiddenLetter.classList.remove('hide')
+                hiddenLetter.classList.add('show')
             }
         })
     }

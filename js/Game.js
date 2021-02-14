@@ -11,11 +11,11 @@ class Game {
 
     createPhrases() {
         const phrases = [
-            new Phrase('Javascript'),
-            new Phrase('React'),
-            new Phrase('PHP'),
-            new Phrase('Node JS'),
-            new Phrase('Programming Is Fun')
+            new Phrase('javascript'),
+            new Phrase('react'),
+            new Phrase('php'),
+            new Phrase('node js'),
+            new Phrase('programming')
         ]
         return phrases;
     }
@@ -35,45 +35,69 @@ class Game {
         return this.phrases[randomizer];
     }
 
-    checkForWin() {
-    //loop through li, if any of the li still contains hide, return false
-        const hiddenLetters = document.querySelectorAll('li.hide.letter')
-        hiddenLetters.forEach(letter => {
-            if (letter.className.includes('letter')) {
-                return false;
-            } else {
-                return true;
+    handleInteraction(button) {
+        if (this.activePhrase.checkLetter(button.textContent)) {
+            this.activePhrase.showMatchedLetter(button.textContent);
+            button.classList.add('chosen');
+            if (this.checkForWin()) { 
+                this.gameOver(this.checkForWin());
             }
-        });
+        } else {
+            button.classList.add('wrong');
+            this.removeLife();
+        }
+    }
+
+    checkForWin() {
+        const hiddenLetters = document.querySelectorAll('.letter')
+        for (let i = 0; i < hiddenLetters.length; i ++) {
+            if (hiddenLetters[i].className.includes('hide')) {
+                return false;
+            }
+        }
+        return true;
     }
 
     removeLife() {
-        //Use set attribute on the image element
-        //increment missed property
-        //if missed is total to 5, call gameover()
         this.missed += 1;
-        const tries = document.querySelectorAll('.tries');
+        const images = document.querySelectorAll('img');
 
-        for (let i = 0; i < tries.length; i++) {
-            tries[i].setAttribute('src', 'images/lostHeart.png')
-            if (this.missed === 5) {
-                this.gameOver();
-            }
+        for (let i = 0; i < this.missed; i++) {
+            images[i].setAttribute('src', 'images/lostHeart.png')
+        }
+
+        if (this.missed === 5) {
+            this.gameOver();
         }
     }
     
     gameOver(gameWon) {
-        const gameOverMessage = document.querySelector('#game-over-message');
         const overlay = document.querySelector('#overlay')
+        const gameOverMessage = overlay.querySelector('#game-over-message');
 
         if (gameWon) {
             gameOverMessage.textContent = 'You Won!'
-            overlay.style.display = 'none';
+            overlay.style.display = '';
             overlay.setAttribute('class', 'win')
-        } else if (!gameWon) {
+            this.resetGame()
+        } else if (this.missed === 5) {
             gameOverMessage.textContent = 'You Lost!'
-            overlay.style.display = 'none';
+            overlay.style.display = '';
             overlay.setAttribute('class', 'lose')
+            this.resetGame()
         }
+    }
+
+    resetGame() {
+        const ul = document.querySelector('ul');
+        const letters = ul.querySelectorAll('li');
+        const keyboardButtons = document.querySelectorAll('.key');
+        const attempts = document.querySelectorAll('img')
+        this.missed = 0;
+
+        letters.forEach(letter => ul.removeChild(letter))
+        keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'))
+        attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'))
+
     }
 }
