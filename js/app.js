@@ -12,16 +12,15 @@ resetBtn.addEventListener('click', () => {
     game.startGame();
 })
 
-//Handles keyboard click
+//Handles on screen keyboard click
 onScreenKeyboard.addEventListener('click', (e) => {
     const button = e.target;
     if (button.className === 'key') {
         game.handleInteraction(button);
-        console.log(button);
     }
 })
 
-//Handles user keyboard press
+//Handles keyboard response to the phrase when user presses keyboard
 document.addEventListener('keydown', (e) => {
     const keyPressed = e.key;
     for (let i = 0; i < key.length; i++) {

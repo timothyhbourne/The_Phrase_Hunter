@@ -9,6 +9,10 @@ class Game {
         this.activePhrase = null;
     }
 
+    /**
+    * Creates phrases for use in game
+    * @return {array} An array of phrases that could be used in the game 
+    */
     createPhrases() {
         const phrases = [
             new Phrase('javascript'),
@@ -20,6 +24,9 @@ class Game {
         return phrases;
     }
 
+    /**
+    * Begins game by selecting a random phrase and displaying it to user
+    */
     startGame() {
         document.querySelector('#overlay').style.display = 'none';
         this.activePhrase = this.getRandomPhrase();
@@ -35,6 +42,10 @@ class Game {
         return this.phrases[randomizer];
     }
 
+    /**
+     * Handles onscreen keyboard button clicks
+     * @param (HTMLButtonElement) button - The clicked button element
+     */
     handleInteraction(button) {
         if (this.activePhrase.checkLetter(button.textContent)) {
             this.activePhrase.showMatchedLetter(button.textContent);
@@ -48,6 +59,10 @@ class Game {
         }
     }
 
+    /**
+     * Checks for winning move
+     * @return {boolean} True if game has been won, false if game wasn't
+    won */
     checkForWin() {
         const hiddenLetters = document.querySelectorAll('.letter')
         for (let i = 0; i < hiddenLetters.length; i ++) {
@@ -58,46 +73,56 @@ class Game {
         return true;
     }
 
+    /**
+     * Increases the value of the missed property
+     * Removes a life from the scoreboard
+     * Checks if player has remaining lives and ends game if player is out
+     */
     removeLife() {
         this.missed += 1;
         const images = document.querySelectorAll('img');
 
         for (let i = 0; i < this.missed; i++) {
-            images[i].setAttribute('src', 'images/lostHeart.png');
+            images[i].setAttribute('src', 'images/lostHeart.png')
         }
         if (this.missed === 5) {
             this.gameOver();
         }
     }
-    
+   
+    /**
+     * Displays game over message
+     * @param {boolean} gameWon - Whether or not the user won the game
+     */
     gameOver(gameWon) {
-        const overlay = document.querySelector('#overlay');
+        const overlay = document.querySelector('#overlay')
         const gameOverMessage = overlay.querySelector('#game-over-message');
 
         if (gameWon) {
             gameOverMessage.textContent = 'You Won!'
             overlay.style.display = '';
-            overlay.setAttribute('class', 'win');
-            this.resetGame();
+            overlay.setAttribute('class', 'win')
+            this.resetGame()
         } else if (this.missed === 5) {
             gameOverMessage.textContent = 'You Lost!'
             overlay.style.display = '';
-            overlay.setAttribute('class', 'lose');
-            this.resetGame();
+            overlay.setAttribute('class', 'lose')
+            this.resetGame()
         }
     }
 
+    /**
+     * Resets the game state. 
+     */
     resetGame() {
         const ul = document.querySelector('ul');
         const letters = ul.querySelectorAll('li');
         const keyboardButtons = document.querySelectorAll('.key');
-        const attempts = document.querySelectorAll('img');
-        const banner = document.querySelector('#banner');
+        const attempts = document.querySelectorAll('img')
         this.missed = 0;
 
-        letters.forEach(letter => ul.removeChild(letter));
-        keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'));
-        attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'));
-        banner.nextElementSibling.remove();
+        letters.forEach(letter => ul.removeChild(letter))
+        keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'))
+        attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'))
     }
 }

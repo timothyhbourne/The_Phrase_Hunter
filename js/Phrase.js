@@ -28,11 +28,19 @@ class Phrase {
         });
     }
 
+    /**
+     * Checks if passed letter is in phrase
+     * @param (string) letter - Letter to check, returns boolen
+     */
     checkLetter(letter) { 
         const phrase = this.phrase.toLowerCase();
         return phrase.includes(letter) ? true : false;
     }
 
+    /**
+     * Displays passed letter on screen after a match is found
+     * @param (string) letter - Letter to display
+     */
     showMatchedLetter(letter) {
         const hiddenLetters = document.querySelectorAll('li.hide.letter');
         hiddenLetters.forEach(hiddenLetter => {
