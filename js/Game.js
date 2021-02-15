@@ -97,16 +97,23 @@ class Game {
     gameOver(gameWon) {
         const overlay = document.querySelector('#overlay')
         const gameOverMessage = overlay.querySelector('#game-over-message');
+        // const resetGameButton = document.querySelector('#btn__reset');        
+        // const message = document.createElement('h3')
+        
+        // message.textContent = 'Or press Enter to restart the game'
+        // message.setAttribute('id', 'message')
 
         if (gameWon) {
             gameOverMessage.textContent = 'You Won!'
             overlay.style.display = '';
             overlay.setAttribute('class', 'win')
+            // resetGameButton.insertAdjacentElement('afterend', message)
             this.resetGame()
-        } else if (this.missed === 5) {
+        } else if (this.missed >= 5) {
             gameOverMessage.textContent = 'You Lost!'
             overlay.style.display = '';
             overlay.setAttribute('class', 'lose')
+            // resetGameButton.insertAdjacentElement('afterend', message)
             this.resetGame()
         }
     }
@@ -124,5 +131,57 @@ class Game {
         letters.forEach(letter => ul.removeChild(letter))
         keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'))
         attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'))
+
+    }
+
+    /**
+     * Adds a Timer
+     */
+    addTimer() {
+        //Add H3 Element below Banner 
+        const banner = document.querySelector('#banner')
+        const timerH3 = document.createElement('h3');
+        banner.insertAdjacentElement('afterend', timerH3);
+        
+        //Modify timer HTML and attribute
+        timerH3.setAttribute('id', 'timer');
+        timerH3.style.fontSize = '28px';
+        timerH3.textContent = 'GO!';
+        
+        // Initial time
+        let time = 0.1 * 60;
+
+        //Select timer element
+        const timer = document.querySelector('#timer');
+
+        //Timer countdown functionality using setInterval
+        let interval = setInterval(() => {
+            let minutes = Math.floor(time / 60);
+            let seconds = time % 60;
+
+            if (seconds < 10) {
+                timer.textContent = `${minutes} : 0${seconds}`;
+            } else {
+                timer.textContent = `${minutes} : ${seconds}`;
+            }
+
+            time > 0 ? time -= 1 : null;
+    
+            if (this.checkForWin() || time === 0) {
+                clearInterval(interval)
+                timer.remove();
+            }
+
+            if (this.missed > 4 && time > 0) {
+                clearInterval(interval)
+                timer.remove();
+            }
+
+            if (time === 0) {
+                this.missed += 5;
+                this.gameOver();
+                timer.remove();
+            }
+        }, 1000);
     }
 }

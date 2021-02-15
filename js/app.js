@@ -10,6 +10,16 @@ const key = document.querySelectorAll('.key')
 resetBtn.addEventListener('click', () => {
     game = new Game()
     game.startGame();
+    game.addTimer();
+})
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+        game = new Game()
+        game.startGame();
+        game.addTimer();
+
+    }
 })
 
 //Handles on screen keyboard click
@@ -29,3 +39,7 @@ document.addEventListener('keydown', (e) => {
         }
     }
 })
+
+//
+
+

@@ -19,11 +19,11 @@ class Phrase {
             if (letter === ' ') {
                 li.setAttribute('class', 'space');
                 li.textContent = ' ';
-                UL.appendChild(li)
+                UL.appendChild(li);
             } else {
                 li.setAttribute('class', 'hide letter')
-                li.textContent = `${letter}`
-                UL.appendChild(li)
+                li.textContent = `${letter}`;
+                UL.appendChild(li);
             }
         });
     }
@@ -45,8 +45,8 @@ class Phrase {
         const hiddenLetters = document.querySelectorAll('li.hide.letter');
         hiddenLetters.forEach(hiddenLetter => {
             if (letter.toLowerCase() === hiddenLetter.textContent) {
-                hiddenLetter.classList.remove('hide')
-                hiddenLetter.classList.add('show')
+                hiddenLetter.classList.remove('hide');
+                hiddenLetter.classList.add('show');
             }
         })
     }
