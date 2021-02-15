@@ -202,3 +202,9 @@ button {
 .lose a {
   color: var(--color-lose);
 }
+
+button:hover {
+  background-color: rgba(0, 0, 0, .3);
+  border: rgba(0, 0, 0) 1px solid;
+  color: white;
+}
