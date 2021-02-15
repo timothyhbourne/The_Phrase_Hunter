@@ -97,23 +97,16 @@ class Game {
     gameOver(gameWon) {
         const overlay = document.querySelector('#overlay')
         const gameOverMessage = overlay.querySelector('#game-over-message');
-        // const resetGameButton = document.querySelector('#btn__reset');        
-        // const message = document.createElement('h3')
-        
-        // message.textContent = 'Or press Enter to restart the game'
-        // message.setAttribute('id', 'message')
 
         if (gameWon) {
             gameOverMessage.textContent = 'You Won!'
             overlay.style.display = '';
             overlay.setAttribute('class', 'win')
-            // resetGameButton.insertAdjacentElement('afterend', message)
             this.resetGame()
         } else if (this.missed >= 5) {
             gameOverMessage.textContent = 'You Lost!'
             overlay.style.display = '';
             overlay.setAttribute('class', 'lose')
-            // resetGameButton.insertAdjacentElement('afterend', message)
             this.resetGame()
         }
     }
@@ -125,13 +118,12 @@ class Game {
         const ul = document.querySelector('ul');
         const letters = ul.querySelectorAll('li');
         const keyboardButtons = document.querySelectorAll('.key');
-        const attempts = document.querySelectorAll('img')
+        const attempts = document.querySelectorAll('img');
         this.missed = 0;
 
         letters.forEach(letter => ul.removeChild(letter))
         keyboardButtons.forEach(letter => letter.setAttribute('class', 'key'))
         attempts.forEach(attempt => attempt.setAttribute('src', 'images/liveHeart.png'))
-
     }
 
     /**
@@ -149,7 +141,7 @@ class Game {
         timerH3.textContent = 'GO!';
         
         // Initial time
-        let time = 0.1 * 60;
+        let time = 1 * 60;
 
         //Select timer element
         const timer = document.querySelector('#timer');
@@ -168,12 +160,12 @@ class Game {
             time > 0 ? time -= 1 : null;
     
             if (this.checkForWin() || time === 0) {
-                clearInterval(interval)
+                clearInterval(interval);
                 timer.remove();
             }
 
             if (this.missed > 4 && time > 0) {
-                clearInterval(interval)
+                clearInterval(interval);
                 timer.remove();
             }
 
