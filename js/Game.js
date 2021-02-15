@@ -99,12 +99,12 @@ class Game {
         const gameOverMessage = overlay.querySelector('#game-over-message');
 
         if (gameWon) {
-            gameOverMessage.textContent = 'You Won!'
+            gameOverMessage.textContent = 'Congrats! You Got It!'
             overlay.style.display = '';
-            overlay.setAttribute('class', 'win')
+            overlay.setAttribute('class', 'win');
             this.resetGame()
         } else if (this.missed >= 5) {
-            gameOverMessage.textContent = 'You Lost!'
+            gameOverMessage.textContent = 'Oof! You almost got it!'
             overlay.style.display = '';
             overlay.setAttribute('class', 'lose')
             this.resetGame()

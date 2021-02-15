@@ -24,6 +24,8 @@ onScreenKeyboard.addEventListener('click', (e) => {
 //Handles keyboard response to the phrase when user presses keyboard
 document.addEventListener('keydown', (e) => {
     const keyPressed = e.key;
+    const gameMessage = document.querySelector('#game-over-message')
+
     for (let i = 0; i < key.length; i++) {
         if (keyPressed === key[i].textContent) {
             game.handleInteraction(key[i]);
